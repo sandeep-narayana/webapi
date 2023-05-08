@@ -1,10 +1,21 @@
+using Npgsql;
+using webapi1.Settings;
+
 namespace webapi1.Repositories;
+
 
 public class BaseRepository
 {
+
+
+private readonly IConfiguration _configuration;
+
     // constructor
-    public BaseRepository()
+    public BaseRepository(IConfiguration configuration)
     {
-        
+        _configuration = configuration;
     }
+
+    public NpgsqlConnection NewConnection => new NpgsqlConnection(_configuration
+    .GetSection(nameof(PostgresSettings)).Get<PostgresSettings>().ConnectionString);
 }

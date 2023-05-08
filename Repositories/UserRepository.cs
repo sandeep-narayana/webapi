@@ -5,7 +5,7 @@ namespace webapi1.Repositories;
 
 
 // interface for method
-public interface IUserRepository
+public interface IUserRepository 
 { 
     Task<User> Create(User user);
     Task<User> Update(User user);
@@ -15,10 +15,11 @@ public interface IUserRepository
 
 
 }
-    public class UserRepository : IUserRepository
+    public class UserRepository : BaseRepository,IUserRepository
     {
         // constructors
-         public UserRepository(){
+         public UserRepository(IConfiguration config) : base(config)
+         {
 
          }
 
