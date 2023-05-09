@@ -13,6 +13,7 @@ private readonly IConfiguration _configuration;
     // constructor
     public BaseRepository(IConfiguration configuration)
     {
+        Dapper.DefaultTypeMap.MatchNamesWithUnderscores = true;
         _configuration = configuration;
     }
 
