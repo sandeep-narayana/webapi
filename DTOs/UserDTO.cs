@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
+using webapi1.Models;
 
 namespace webapi1.DTOs;
 
@@ -15,6 +16,8 @@ public record userDto{
         public long Mobile {get; set;}
         public string Email {get; set;}
         public string Gender {get; set;} // here it will me in form of male or female
+
+        public List<Hardware> Hardware{get; set;}
 }
 
 public record userCreateDto{

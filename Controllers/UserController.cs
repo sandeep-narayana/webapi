@@ -14,11 +14,14 @@ public class UserController : ControllerBase
     private readonly ILogger<UserController > _logger;
     private readonly IUserRepository _userRepository;
 
-    public UserController(ILogger<UserController> logger,IUserRepository userRepository
+    private readonly IHardwareRepository _hardwareRepository;
+
+    public UserController(ILogger<UserController> logger,IUserRepository userRepository,IHardwareRepository hardwareRepository
     )
     {
         _logger = logger;
         _userRepository = userRepository;
+        _hardwareRepository = hardwareRepository;
     }
 
 
@@ -32,14 +35,23 @@ public class UserController : ControllerBase
         }
         
         // convert it to dto
-        var userDto = user.asDto;
+        // var userDto = user.asDto;
  
-        return Ok(userDto);
+        // return Ok(userDto);
+
+        // if i want the details with hardware
+
+        var dto = user.asDto;
+        dto.Hardware = await _hardwareRepository.getAllForEmployees(user.EmployeeNumber);
+
+        return Ok(dto);
+
 
     }
 
     [HttpGet]
     public async Task<ActionResult<List<userDto>>> getAllUser() // ActionResult for status code
+    
     {
         var userList  = await _userRepository.getList();
         // convert it into userDTO
